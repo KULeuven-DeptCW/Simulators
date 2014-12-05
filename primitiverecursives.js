@@ -45,7 +45,11 @@ function prParseIdentifier (text,args) {
 }
 
 function prParse (text) {
-	//var parseStack
+	var parseStack = new Array();
+	var current = "";
+	for(var i = 0x00; i < text.length; i++) {
+		
+	}
 }
 
 function describePrimobj () {

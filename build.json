@@ -1,0 +1,57 @@
+{
+  "global" : {
+    "debug" : {
+      "compiler" : "uglify",
+       "uglify" : {
+         "mangle" : false,
+         "squeeze-more" : false,
+         "unsafe" : false,
+         "squeeze" : false,
+         "beautify" : true
+       },
+       "closure" : {
+          "compilationLevel" : "WHITESPACE_ONLY",
+          "sourceMap" : true,
+          "debug" : true,
+          "prettyPrint" : true,
+          "externs" : ["jquery-1.7.externs.js"],
+          "jscompWarnings" : ["checkTypes"],
+          "jscompOff" : ["missingProperties"],
+          "outputWrapper" : "!function () {%output%}();"
+       }
+    },
+    "release" : {
+      "compiler" : "closure",
+      "uglify" : {
+        "mangle" : true,
+        "squeeze-more" : true,
+        "unsafe" : true,
+        "squeeze" : true,
+        "beautify" : false
+      },
+      "closure" : {
+        "compilationLevel" : "ADVANCED_OPTIMIZATIONS",
+        "sourceMap" : true,
+        "debug" : false,
+        "prettyPrint" : false,
+        "externs" : ["jquery-1.7.externs.js"],
+        "jscompWarnings" : ["checkTypes", "accessControls", "visibility"],
+        "jscompOff" : ["missingProperties"],
+        "outputWrapper" : "!function () {%output%}();",
+        "processJqueryPrimitives" : true,
+        "useTypesForOptimization" : true
+      }
+    }
+  },
+  "./test/js/test1.js" : {
+    "release" : {
+      "closure" : {
+        "debug" : true,
+        "prettyPrint" : true
+      }
+    }
+  },
+  "./test/js/test2.js" : {},
+  "./js/closure_compiler_utils.js" : {}
+}
+
