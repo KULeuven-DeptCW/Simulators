@@ -4,6 +4,16 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+		.node {
+		  stroke: #fff;
+		  stroke-width: 2px;
+		}
+		.link {
+		  fill: none;
+		  stroke: #000;
+		}
+	</style>
     <title>Simulators</title>
 
     <!-- Bootstrap -->
@@ -23,7 +33,7 @@
 			<div class="form-group">
 				<label for="primrec-fn">Function</label>
 				<div id="pr-backreport">
-					<textarea class="form-control" id="primrec-fn" placeholder="Enter primitive recursive function here." onkeyup="prFeedback('primrec-fn','pr-backreport','pr-typeinf','primrec-in','primrec-out','pr-stdout','pr-stderr');"></textarea>
+					<textarea class="form-control" id="primrec-fn" placeholder="Enter primitive recursive function here." onkeyup="prFeedback('primrec-fn','pr-backreport','pr-typeinf','primrec-in','pr-stdout','pr-stderr','pr-stdinf');"></textarea>
 				</div>
 			</div>
 			<div class="form-group">
@@ -33,20 +43,18 @@
 				<label for="primrec-in">Input</label>
 				<input type="text" class="form-control" id="primrec-in" placeholder="Enter input tuple here."></textarea>
 			</div>
-			<div class="form-group">
-				<label for="primrec-out">Output</label><div id="primrec-out"></div>
-			</div>
 			<button class="btn btn-default" onclick="prparse('primrec-fn');">Simulate!</button>
 		</div><div class="col-md-6">
-			<div id="pr-stdout" class="alert alert-success" role="alert">...</div>
-			<div id="pr-stderr" class="alert alert-danger" role="alert"></div>
+			<div hidden id="pr-stdout" class="alert alert-success" role="alert"></div>
+			<div hidden id="pr-stderr" class="alert alert-danger" role="alert"></div>
+			<div hidden id="pr-stdinf" class="alert alert-info" role="alert">Press "Simulate!" to visualize computation...</div>
 		</div>
 	</div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <script src="primitiverecursives.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="pr-parser.js"></script>
+    <script src="parserutils.js"></script>
+    <script src="primitiverecursives.js"></script>
   </body>
 </html>
