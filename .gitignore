@@ -2,3 +2,6 @@
 *.*~*
 # Node.js packages
 node_modules/*
+
+# Output javascripts
+pr-parser.js

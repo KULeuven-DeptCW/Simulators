@@ -1,0 +1,2 @@
+install :
+	bash installscript.sh

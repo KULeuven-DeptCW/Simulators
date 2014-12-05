@@ -1,15 +1,9 @@
-/~
-	Expression calculator written in JS/CC (nodejs)
-~/
-
-/~
-	--- These are the token definitions ---
-~/
 !	' |\t|\n' ;		/~ Characters to be ignored... ~/
 
 	'\['			/~ Non-associative tokens ~/
 	'\]'
-	'[0-9]+'				NUMBER			[* %match = parseFloat( %match );	*]
+	','
+	'[0-9]+'	INT	[* %match=parseInt(%match); *]
 	'NUL'          /~ nul function ~/
 	'SUCC'         /~ succ function ~/
 	'P'            /~ Projection ~/
@@ -24,45 +18,43 @@
 	--- And here's the grammar specification ---
 ~/
 
-p:	e								[* console.log( %1 );   				*]
+p:	e						[* alert(%1.tostring()); *]
+	;
+e: 	  NUL					[*%% = new prNul(); *]
+	| SUCC					[*%% = new prSucc(); *]
+	| P	'[' INT ',' INT ']'	[*%% = new prProjection(%3,%5); *]
+	| PR '[' e ',' e ']'	[*%% = new prRecursion(%3,%5); *]
+	| CN '[' e ',' es ']'	[*%% = new prComposite(%3,%5); *]
 	;
 
-/~
-	Don't confuse with the tokens:
-	Here, we use the unescaped values because these are not
-	interpretered as regular expressions at this position!
-~/
-e: 	  NUL							[* %% = new prNul();			*]
-	| SUCC							[* %% = new prNul();			*]
-	| P								[* %% = new prNul();			*]
-	| PR							[* %% = new prNul();			*]
-	| CN							[* %% = new prNul();			*]
+es:	  e
+	| e ',' es
 	;
 
-/~
-	This is the parser entry point; Because this entry point could be
-	very individual, the compiler programmer has to decide which way
-	he want to read the source, parse it and report the errors, if
-	there are any.
-~/
 [*
+/*
 	if(process.argv.length > 2) {
 		var str = process.argv;
 		delete str[0];
 		delete str[1];
 		str = str.join(" ");
+//*/
+		var str = "PR [succ,nul]";
+		str = str.toUpperCase();
 		var error_cnt = 0;
 		var error_off = new Array();
 		var error_la = new Array();
 	
 		if((error_cnt = __##PREFIX##parse(str, error_off, error_la)) > 0) {
-		for(var i = 0; i < error_cnt; i++ ) {
-			console.log( "Parse error near >" + str.substr( error_off[i], 30 ) + "<, expecting \"" + error_la[i].join() + "\"" );
+			for(var i = 0; i < error_cnt; i++ ) {
+				console.log( "Parse error near >" + str.substr( error_off[i], 30 ) + "<, expecting \"" + error_la[i].join() + "\"" );
+			}
 		}
-		}
+/*
 	}
 	else {
 		console.log( 'usage: proram <expr>' );
 	}
+//*/
 *]
 

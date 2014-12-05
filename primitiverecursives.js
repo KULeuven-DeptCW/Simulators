@@ -1,30 +1,34 @@
-function primobj (obj,degree) {
+function primobj (obj,type,degree) {
+	obj.type = type;
 	obj.degree = degree;
 	obj.describe = describePrimobj;
 }
 
 function prNul () {
-	primobj(this,1);
+	primobj(this,"nul",1);
 	this.tostring = function () {return "nul";};
 }
 
 function prSucc () {
-	primobj(this,1);
+	primobj(this,"succ",1);
 	this.tostring = function () {return "succ";};
 }
 
 function prProjection (n,i) {
-    primobj(this,n);
+    primobj(this,"p",n);
 	this.pick = i;
 	this.tostring = function () {return "p["+this.degree+","+this.pick+"]";};
 }
 
 function prComposite (f,gs) {
-    primobj(this,gs[0].degree);
+    primobj(this,"cn",gs[0].degree);
 }
 
 function prRecursion (f,g) {
-    primobj(this,f.degree+1);
+    primobj(this,"pr",f.degree+1);
+    this.f = f;
+    this.g = g;
+    this.tostring = function () {return "pr["+this.f.tostring()+","+this.g.tostring()+"]";};
 }
 
 function prParseIdentifier (text,args) {
