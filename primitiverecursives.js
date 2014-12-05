@@ -26,6 +26,7 @@ function prProjection (n,i) {
 function prComposite (f,gs) {
     primobj(this,"cn",gs.head.degree);
     var deg = this.degree;
+    this.gs = unroll(gs);
     var gi = gs;
     var od = 1;
     while(typeof(gi.tail) !== 'undefined') {
@@ -39,9 +40,8 @@ function prComposite (f,gs) {
     	throw "The degree of the first function of the composite must be equal to the number of functions of the composition minus one.";
     }
     this.f = f;
-    this.gs = gs;
-    this.tostring = function () {var gi = this.gs;var result = "cn["+this.f.tostring()+","+gi.head.tostring(); while(typeof(gi.tail) !== 'undefined') {gi = gi.tail; result += ","+gi.head.tostring();}return result+"]";};
-    this.calc = function (x) {var gi = this.gs; var rs = new Array();rs.push(gi.head.calc(x)); while(typeof(gi.tail) !== 'undefined') {gi = gi.tail; rs.push(gi.head.calc(x));}return f.calc(rs);};
+    this.tostring = function () {return "cn["+this.f.tostring()+","+this.gs.map(function (x) {return x.tostring();}).join(",")+"]";};
+    this.calc = function (x) {return f.calc(this.gs.map(function (y) {return y.calc(x);}));};
 }
 
 function prRecursion (f,g) {
