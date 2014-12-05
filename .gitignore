@@ -4,7 +4,7 @@
 *.swp
 
 # Node.js packages
-node_modules/*
+public_html/node_modules/*
 
 # Output javascripts
 */pr-parser.js
