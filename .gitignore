@@ -13,3 +13,4 @@ node_modules/*
 config/*
 nbproject/*
 test/*
+public_html/js/*
