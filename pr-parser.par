@@ -36,13 +36,12 @@ var prResult;
 var prError_cnt = 0;
 var prError_off = new Array();
 var prError_la = new Array();
-function prparse (did) {
-	var str = document.getElementById(did).value.toUpperCase();
+function prparse (str) {
+	var str = str.toUpperCase();
+	prError_off = new Array();
+	prError_la = new Array();
 	if((prError_cnt = __##PREFIX##parse(str,prError_off,prError_la)) > 0) {
 		prResult = null;
-		for(var i = 0; i < prError_cnt; i++ ) {
-			//alert( "Parse error near >" + str.substr( prError_off[i], 30 ) + "<, expecting \"" + prError_la[i].join() + "\"" );
-		}
 	} else {
 		//alert(prResult.tostring());
 	}

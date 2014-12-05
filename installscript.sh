@@ -1,3 +1,4 @@
+#!/bin/bash
 if [ ! -d "node_modules/jscc-node" ]; then
 	npm install jscc-node
 fi

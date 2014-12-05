@@ -18,21 +18,30 @@
   </head>
   <body>
     <h1>Primitive recursive functions</h1>
-    <div class="form-group">
-	    <label for="primrec-fn">Function</label>
-	    <div id="pr-backreport">
-		    <textarea class="form-control" id="primrec-fn" placeholder="Enter primitive recursive function here." onkeyup="prFeedback('primrec-fn','pr-backreport','pr-typeinf');"></textarea>
-	    </div>
-    </div>
-    <div class="form-group">
-    <label for="primrec-ty">Automated type inference: </label><div id="pr-typeinf"></div>
-    </div>
-    <div class="form-group">
-	    <label for="primrec-in">Input</label>
-	    <input type="text" class="form-control" id="primrec-in" placeholder="Enter input tuple here."></textarea>
-    </div>
-    <button class="btn btn-default" onclick="prparse('primrec-fn');">Simulate!</button>
-
+    <div class="row">
+	    <div class="col-md-6">
+			<div class="form-group">
+				<label for="primrec-fn">Function</label>
+				<div id="pr-backreport">
+					<textarea class="form-control" id="primrec-fn" placeholder="Enter primitive recursive function here." onkeyup="prFeedback('primrec-fn','pr-backreport','pr-typeinf','primrec-in','primrec-out','pr-stdout','pr-stderr');"></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+			<label for="primrec-ty">Automated type inference: </label><div class="bg-info" id="pr-typeinf"></div>
+			</div>
+			<div class="form-group">
+				<label for="primrec-in">Input</label>
+				<input type="text" class="form-control" id="primrec-in" placeholder="Enter input tuple here."></textarea>
+			</div>
+			<div class="form-group">
+				<label for="primrec-out">Output</label><div id="primrec-out"></div>
+			</div>
+			<button class="btn btn-default" onclick="prparse('primrec-fn');">Simulate!</button>
+		</div><div class="col-md-6">
+			<div id="pr-stdout" class="alert alert-success" role="alert">...</div>
+			<div id="pr-stderr" class="alert alert-danger" role="alert"></div>
+		</div>
+	</div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
