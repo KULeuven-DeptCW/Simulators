@@ -7,17 +7,20 @@ function primobj (obj,type,degree) {
 function prNul () {
 	primobj(this,"nul",1);
 	this.tostring = function () {return "nul";};
+	this.calc = function (x) {return [0];};
 }
 
 function prSucc () {
 	primobj(this,"succ",1);
 	this.tostring = function () {return "succ";};
+	this.calc = function (x) {return [x[0]+0x01];};
 }
 
 function prProjection (n,i) {
     primobj(this,"p",n);
 	this.pick = i;
 	this.tostring = function () {return "p["+this.degree+","+this.pick+"]";};
+	this.calc = function (x) {return x[this.pick];};
 }
 
 function prComposite (f,gs) {
@@ -25,6 +28,7 @@ function prComposite (f,gs) {
     this.f = f;
     this.gs = gs;
     this.tostring = function () {var gi = this.gs;var result = "cn["+this.f.tostring()+","+gi.head.tostring(); while(typeof(gi.tail) !== 'undefined') {gi = gi.tail; result += ","+gi.head.tostring();}return result+"]";};
+    this.calc = function (x) {var gi = this.gs; var rs = new Array();rs.push(gi.head.calc(x)); while(typeof(gi.tail) !== 'undefined') {gi = gi.tail; rs.push(gi.head.calc(x));}return f.calc(rs);};
 }
 
 function prRecursion (f,g) {
@@ -32,31 +36,6 @@ function prRecursion (f,g) {
     this.f = f;
     this.g = g;
     this.tostring = function () {return "pr["+this.f.tostring()+","+this.g.tostring()+"]";};
-}
-
-function prParseIdentifier (text,args) {
-    switch(text) {
-        case "nul" :
-            return new prNul();
-        case "succ" :
-            return new prSucc();
-        case "p" :
-            return new prProjection(args[0],args[1]);
-        case "cn" :
-        	return new prComposite(null,null);
-        case "pr" :
-        	return new prRecursion(null,null);
-        default :
-            return null;
-    }
-}
-
-function prParse (text) {
-	var parseStack = new Array();
-	var current = "";
-	for(var i = 0x00; i < text.length; i++) {
-		
-	}
 }
 
 function describePrimobj () {
@@ -75,5 +54,6 @@ function prFeedback (iid,fid,tid) {
 	} else {
 		$("#"+fid).attr('class','');
 		$("#"+tid).html(":t ("+prResult.tostring()+") = "+prResult.describe());
+		document.writeln(prResult.calc([0]));
 	}
 }
