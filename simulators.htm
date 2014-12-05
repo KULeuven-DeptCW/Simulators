@@ -17,18 +17,21 @@
     <![endif]-->
   </head>
   <body>
-    <h1>Primite recursive functions</h1>
-    <form>
+    <h1>Primitive recursive functions</h1>
     <div class="form-group">
 	    <label for="primrec-fn">Function</label>
-	    <textarea class="form-control" id="primrec-fn" placeholder="Enter primitive recursive function here."></textarea>
+	    <div id="pr-backreport">
+		    <textarea class="form-control" id="primrec-fn" placeholder="Enter primitive recursive function here." onkeyup="prFeedback('primrec-fn','pr-backreport','pr-typeinf');"></textarea>
+	    </div>
+    </div>
+    <div class="form-group">
+    <label for="primrec-ty">Automated type inference: </label><div id="pr-typeinf"></div>
     </div>
     <div class="form-group">
 	    <label for="primrec-in">Input</label>
 	    <input type="text" class="form-control" id="primrec-in" placeholder="Enter input tuple here."></textarea>
     </div>
-    <button type="submit" class="btn btn-default">Simulate!</button>
-    </form>
+    <button class="btn btn-default" onclick="prparse('primrec-fn');">Simulate!</button>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

@@ -18,7 +18,7 @@
 	--- And here's the grammar specification ---
 ~/
 
-p:	e						[* alert(%1.tostring()); *]
+p:	e						[* prResult = %1; *]
 	;
 e: 	  NUL					[*%% = new prNul(); *]
 	| SUCC					[*%% = new prSucc(); *]
@@ -27,34 +27,25 @@ e: 	  NUL					[*%% = new prNul(); *]
 	| CN '[' e ',' es ']'	[*%% = new prComposite(%3,%5); *]
 	;
 
-es:	  e
-	| e ',' es
+es:	  e                     [*%% = {head : %1};*]
+	| e ',' es              [*%% = {head : %1, tail : %3};*]
 	;
 
 [*
-/*
-	if(process.argv.length > 2) {
-		var str = process.argv;
-		delete str[0];
-		delete str[1];
-		str = str.join(" ");
-//*/
-		var str = "PR [succ,nul]";
-		str = str.toUpperCase();
-		var error_cnt = 0;
-		var error_off = new Array();
-		var error_la = new Array();
-	
-		if((error_cnt = __##PREFIX##parse(str, error_off, error_la)) > 0) {
-			for(var i = 0; i < error_cnt; i++ ) {
-				console.log( "Parse error near >" + str.substr( error_off[i], 30 ) + "<, expecting \"" + error_la[i].join() + "\"" );
-			}
+var prResult;
+var prError_cnt = 0;
+var prError_off = new Array();
+var prError_la = new Array();
+function prparse (did) {
+	var str = document.getElementById(did).value.toUpperCase();
+	if((prError_cnt = __##PREFIX##parse(str,prError_off,prError_la)) > 0) {
+		prResult = null;
+		for(var i = 0; i < prError_cnt; i++ ) {
+			//alert( "Parse error near >" + str.substr( prError_off[i], 30 ) + "<, expecting \"" + prError_la[i].join() + "\"" );
 		}
-/*
+	} else {
+		//alert(prResult.tostring());
 	}
-	else {
-		console.log( 'usage: proram <expr>' );
-	}
-//*/
+}
 *]
 

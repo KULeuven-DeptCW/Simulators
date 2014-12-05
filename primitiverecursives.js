@@ -21,7 +21,10 @@ function prProjection (n,i) {
 }
 
 function prComposite (f,gs) {
-    primobj(this,"cn",gs[0].degree);
+    primobj(this,"cn",gs.head.degree);
+    this.f = f;
+    this.gs = gs;
+    this.tostring = function () {var gi = this.gs;var result = "cn["+this.f.tostring()+","+gi.head.tostring(); while(typeof(gi.tail) !== 'undefined') {gi = gi.tail; result += ","+gi.head.tostring();}return result+"]";};
 }
 
 function prRecursion (f,g) {
@@ -64,4 +67,13 @@ function describePrimobj () {
 	return "&#x2115;"+res+"&#8594;&#x2115;";
 }
 
-document.writeln(new prProjection(5,2).describe());
+function prFeedback (iid,fid,tid) {
+	prparse(iid);
+	if(prResult === null) {
+		$("#"+fid).attr('class','has-error');
+		$("#"+tid).html('Invalid expression');
+	} else {
+		$("#"+fid).attr('class','');
+		$("#"+tid).html(":t ("+prResult.tostring()+") = "+prResult.describe());
+	}
+}
