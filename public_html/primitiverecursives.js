@@ -125,7 +125,6 @@ function prPaintST(stdout, data) {
 
     var tree = d3.layout.tree()
             .size([width - 20, height - 20]);
-    prPaintST
     var root = {},
             nodes = tree(root);
 
