@@ -1,7 +1,16 @@
+#Temporaries
 *~
 *.*~*
+*.swp
+
 # Node.js packages
 node_modules/*
 
 # Output javascripts
 pr-parser.js
+
+#Binaries and project files
+config/*
+nbproject/*
+public_html/*
+test/*
