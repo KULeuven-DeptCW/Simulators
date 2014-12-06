@@ -3,6 +3,7 @@ function primobj(obj, type, degree, children) {
     obj.degree = degree;
     obj.describe = describePrimobj;
     obj.children = children;
+    obj.index = -1;
 }
 
 function prNul() {
@@ -118,10 +119,34 @@ function prFeedback(eid, fid, tid, iid, outid, errid, infid) {
     }
 }
 
+function prLazyEvaluate() {
+    return null;
+}
+
+function prParseInput(str) {
+    return [3, 5, 7, 12];
+}
+
+function setWalkVector (content, walkVector) {
+    /*if(walkVector === null) {
+        walkVector = 
+    }*/
+    var vdx = 20;
+    var vxi = -((content.length-0x01)/0x02)*vdx;
+    walkVector.selectAll("g").remove();
+    for(var i = 0; i < content.length; i++) {
+        walkVector.append("text")
+                .attr("dx", vxi)
+                .attr("dy", ".35em").text(content[i]);
+        vxi += vdx;
+    }
+    return walkVector;
+}
+
 function prPaintST(stdout, data) {
 
     var width = 600,
-            height = 300;
+        height = 300;
 
     var tree = d3.layout.tree()
             .size([width - 20, height - 20]);
@@ -144,15 +169,25 @@ function prPaintST(stdout, data) {
     var node = svg.selectAll(".node"),
             link = svg.selectAll(".link");
 
-    var duration = 250,
-            timer = setInterval(update, duration);
+    var durIntro = 250,
+        durWalk = 750,
+        timer = setInterval(introduceTree, durIntro);
     var evalStack = new Array();
     var clrs = d3.scale.category10();
     evalStack.push([data, root]);
 
-    function update() {
-        if (evalStack.length <= 0)
-            return clearInterval(timer);//if entire AST draw, stop!
+    var vinp = prParseInput(null);
+    var rtvctr = svg.append("g").style("fill","#ff0000");
+    setWalkVector(vinp,rtvctr);
+    
+    var walklocation = -0x01;
+
+    function introduceTree() {
+        if (evalStack.length <= 0) {
+            clearInterval(timer);//if entire AST draw, stop!
+            timer = setInterval(walkTree, durWalk);
+            return;
+        }
 
         var cur = evalStack.pop();
 
@@ -211,7 +246,7 @@ function prPaintST(stdout, data) {
 
         // Transition nodes and links to their new positions.
         var t = svg.transition()
-                .duration(duration);
+                .duration(durIntro);
 
         t.selectAll(".link")
                 .attr("d", diagonal);
@@ -222,6 +257,14 @@ function prPaintST(stdout, data) {
                     d.py = d.y;
                     return "translate(" + d.px + "," + d.py + ")";
                 });
+        rtvctr.transition().duration(durIntro).attr("transform", "translate(" + nodes[0x00].px + "," + nodes[0x00].py + ")");
+    }
+    
+    function walkTree() {
+        walklocation = (walklocation % (nodes.length-0x01))+0x01;
+        var t = svg;
+        //alert(JSON.stringify(Object.keys(nodes[walklocation])));
+        rtvctr.transition().duration(durIntro).attr("transform", "translate(" + nodes[walklocation].px + "," + nodes[walklocation].py + ")");
     }
 
 }
