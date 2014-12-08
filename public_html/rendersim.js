@@ -12,10 +12,13 @@
  * A rendersim has the following methods:
  *  - move: move the object to a certain point at the <svg> object.
  *  - schedule: schedules a new function in the agenda. The task is scheduled first. The given function takes maximum one input: the object itself.
+ *              In case an array of functions is given, all functions are scheduled such that the tasks are performed in the given order (in contrast
+ *              to providing the tasks by iteration, where tasks will be performed last to first).
  *  - schedulerepaint: schedule a repaint command.
  *  - schedulemove: schedule a move to a certain location as the next step.
  *  - schedulekill: schedule a kill of this instance.
  *  - scheduleressurect: schedule a ressurect of this instance.
+ *  - schedulesleep: schedule a sleep event: used to wait a activity tick before performing the underlying task.
  *  - repaint: repaints the node. This is done by calling the paint function (a function one must implement oneself). The repaint function takes as input
  *             no parameters, the paint function takes as input one parameter: the <g> node.
  *  - kill: kills the sim, the object is no longer rendered, has no live thead nor an agenda. All attached resources will eventually be collected.
@@ -84,6 +87,10 @@ function rendersim(svg, obj) {
     obj.scheduleressurect = function() {
         obj.schedule(function(c) {
             c.ressurect();
+        });
+    };
+    obj.schedulesleep = function() {
+        obj.schedule(function(c) {
         });
     };
     obj.live = function(ctx) {
