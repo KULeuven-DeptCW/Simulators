@@ -170,7 +170,7 @@ function prPaintST(stdast, data) {
             link = svg.selectAll(".link");
 
     var durIntro = 250,
-            durWalk = 750,
+            durWalk = 7500,
             timer = setInterval(introduceTree, durIntro);
     var evalStack = new Array();
     var clrs = d3.scale.category10();
@@ -260,9 +260,13 @@ function prPaintST(stdast, data) {
     }
 
     function walkTree() {
-        walklocation = (walklocation % (nodes.length - 0x01)) + 0x01;
+        vecsim.taskTime = 750;
+        for(var wi = 0x01; wi < nodes.length; wi++) {
+            vecsim.schedulemove(nodes[wi].px, nodes[wi].py,750);
+        }
+        //walklocation = (walklocation % (nodes.length - 0x01)) + 0x01;
         //alert(JSON.stringify(Object.keys(nodes[walklocation])));
-        vecsim.move(nodes[walklocation].px, nodes[walklocation].py,750);
+        //vecsim.move(nodes[walklocation].px, nodes[walklocation].py,750);
     }
 
 }
