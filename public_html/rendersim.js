@@ -8,9 +8,12 @@
  *  - agenda: A list of tasks that are executed. Such tasks are functions that take at most one parameter (the node itself), in some cases, the functions thus will need to be curried.
  * 
  * A rendersim has the following methods:
+ *  - move: move the object to a certain point at the <svg> object.
+ *  - schedule: schedules a new function in the agenda. The task is scheduled first. The given function takes maximum one input: the object itself.
  *  - kill: kills the sim, the object is no longer rendered, has no live thead nor an agenda. All attached resources will eventually be collected.
+ *  - ressurect: opposite of kill, revive the render sim, because "Niemand gaat verloren".
  * 
- * @param {svg-node} svg The svg node to which this object must be added.
+ * @param {svg-node} svg The svg node to which this object must be added, must be effective.
  * @param {type} obj The given object to convert into a rendersim, if not effective, a new object is created.
  * @returns {rendersim} The rendersim obj. If the given obj was not effective, a new render sim object is generated.
  */
@@ -19,6 +22,19 @@ function rendersim (svg,obj) {
         obj = new Object();
     }
     obj.svg = svg;
-    obj.agenda = new Array();
+    obj.kill = function () {
+        obj.g.remove();
+    };
+    obj.ressurect = function () {
+        obj.g = svg.append("g");
+        obj.agenda = new Array();
+    };
+    obj.move = function (x,y,t) {
+        obj.g.attr("transform", "translate("+x+","+y+")");
+    };
+    obj.schedule = function (task) {
+        obj.agenda.push(task);
+    }
+    obj.ressurect();
     return obj;
 }
