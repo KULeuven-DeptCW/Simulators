@@ -127,17 +127,14 @@ function prParseInput(str) {
     return [3, 5, 7, 12];
 }
 
-function setWalkVector(content, walkVector) {
-    /*if(walkVector === null) {
-     walkVector = 
-     }*/
+function setWalkVector(walkVector) {
     var vdx = 20;
-    var vxi = -((content.length - 0x01) / 0x02) * vdx;
+    var vxi = -((this.length - 0x01) / 0x02) * vdx;
     walkVector.selectAll("text").remove();
-    for (var i = 0; i < content.length; i++) {
+    for (var i = 0; i < this.length; i++) {
         walkVector.append("text")
                 .attr("dx", vxi)
-                .attr("dy", ".35em").text(content[i]);
+                .attr("dy", ".35em").text(this[i]);
         vxi += vdx;
     }
     return walkVector;
@@ -260,9 +257,10 @@ function prPaintST(stdast, data) {
     }
 
     function walkTree() {
+        vecsim.fork();
         vecsim.taskTime = 750;
-        for(var wi = 0x01; wi < nodes.length; wi++) {
-            vecsim.schedulemove(nodes[wi].px, nodes[wi].py,750);
+        for (var wi = 0x01; wi < nodes.length; wi++) {
+            vecsim.schedulemove(nodes[wi].px, nodes[wi].py, 750);
         }
         //walklocation = (walklocation % (nodes.length - 0x01)) + 0x01;
         //alert(JSON.stringify(Object.keys(nodes[walklocation])));

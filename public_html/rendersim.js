@@ -40,13 +40,14 @@ function rendersim(svg, obj) {
     };
     obj.ressurect = function() {
         obj.g = svg.append("g");
-        if(!obj.alive) {
+        if (!obj.alive) {
             obj.alive = true;
-            setTimeout(obj.live,1,obj);
+            setTimeout(obj.live, 1, obj);
         }
     };
-    obj.paint = function (g) {};
-    obj.repaint = function () {
+    obj.paint = function(g) {
+    };
+    obj.repaint = function() {
         obj.g.selectAll().remove();
         obj.paint(obj.g);
     };
@@ -60,36 +61,46 @@ function rendersim(svg, obj) {
     };
     obj.schedule = function(task) {
         obj.agenda.push(task);
-        if(!obj.alive) {
+        if (!obj.alive) {
             obj.alive = true;
-            setTimeout(obj.live,1,obj);
+            setTimeout(obj.live, 1, obj);
         }
     };
-    obj.schedulemove = function (x,y,t) {
-        obj.schedule(function (c) {c.move(x,y,t);});
+    obj.schedulemove = function(x, y, t) {
+        obj.schedule(function(c) {
+            c.move(x, y, t);
+        });
     };
-    obj.schedulerepaint = function () {
-        obj.schedule(function (c) {c.repaint();})
-    }
-    obj.schedulekill = function () {
-        obj.schedule(function (c) {c.kill();})
-    }
-    obj.scheduleressurect = function () {
-        obj.schedule(function (c) {c.ressurect();})
-    }
-    obj.live = function (ctx) {
-        if(ctx.agenda.length > 0x00) {
+    obj.schedulerepaint = function() {
+        obj.schedule(function(c) {
+            c.repaint();
+        });
+    };
+    obj.schedulekill = function() {
+        obj.schedule(function(c) {
+            c.kill();
+        });
+    };
+    obj.scheduleressurect = function() {
+        obj.schedule(function(c) {
+            c.ressurect();
+        });
+    };
+    obj.live = function(ctx) {
+        if (ctx.agenda.length > 0x00) {
             ctx.alive = true;
             var task = ctx.agenda.pop();
-            setTimeout(obj.live,ctx.taskTime,ctx);
+            setTimeout(obj.live, ctx.taskTime, ctx);
             task(ctx);
         } else {
             ctx.alive = false;
         }
     };
-    obj.fork = function () {
-        var cln = rendersim(obj.svg,null);
-        
+    obj.fork = function() {
+        var cln = rendersim(obj.svg, null);
+        cln.paint = obj.paint;
+        cln.taskTime = obj.taskTime;
+        cln.repaint();
         return cln;
     };
     obj.ressurect();
