@@ -1,0 +1,41 @@
+!	' |\t|\n' ;		/~ Characters to be ignored... ~/
+
+	'\('			/~ Non-associative tokens ~/
+	'\)'
+	'[a-zA-Z]' 	CHAR	[* %match=parseInt(%match); *]
+	'\*'           /~ Kleene star ~/
+	'\|'           /~ Disjunctive operator ~/
+	;
+
+
+##
+
+/~
+	--- And here's the grammar specification ---
+~/
+
+p:	e					[* rgResult = %1; *]
+	;
+e: 	  CHAR					[*%% = new rgNul(); *]
+        | e e                                   [*%% = new rgNul(); *]
+	| e '*' 				[*%% = new rgSucc(); *]
+	| e '|' e                               [*%% = new rgProjection(%3,%5); *]
+	;
+
+[*
+var rgResult;
+var rgError_cnt = 0;
+var rgError_off = new Array();
+var rgError_la = new Array();
+function rgparse (str) {
+	var str = str.toUpperCase();
+	rgError_off = new Array();
+	rgError_la = new Array();
+	if((rgError_cnt = __##PREFIX##parse(str,rgError_off,rgError_la)) > 0) {
+		rgResult = null;
+	} else {
+		//alert(rgResult.tostring());
+	}
+}
+*]
+

@@ -7,7 +7,7 @@
 public_html/node_modules/*
 
 # Output javascripts
-*/pr-parser.js
+*/*-parser.js
 
 #Binaries and project files
 config/*
