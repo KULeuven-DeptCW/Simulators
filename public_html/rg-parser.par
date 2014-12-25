@@ -16,10 +16,11 @@
 
 p:	e					[* rgResult = %1; *]
 	;
-e: 	  CHAR					[*%% = new rgNul(); *]
-        | e e                                   [*%% = new rgNul(); *]
-	| e '*' 				[*%% = new rgSucc(); *]
-	| e '|' e                               [*%% = new rgProjection(%3,%5); *]
+e: 	  CHAR					[*%% = new rgChr(%1); *]
+        | e e                                   [*%% = new rgCat(%1,%2); *]
+        | '(' e ')'                             [*%% = %1; *]
+	| e '*' 				[*%% = new rgStr(%1); *]
+	| e '|' e                               [*%% = new rgDsj(%1,%3); *]
 	;
 
 [*
