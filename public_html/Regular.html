@@ -1,63 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-		.node {
-//		  stroke: #fff;
-//		  fill: #000;
-//		  stroke-width: 1px;
-		}
-		.link {
-		  fill: none;
-		  stroke: #000;
-		}
-	</style>
-    <title>Simulators</title>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            .node {
+                //		  stroke: #fff;
+                //		  fill: #000;
+                //		  stroke-width: 1px;
+            }
+            .link {
+                fill: none;
+                stroke: #000;
+            }
+        </style>
+        <title>Simulators</title>
 
-    <!-- Bootstrap -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <h1>Regular languages</h1>
-    <div class="row">
-	    <div class="col-md-6">
-			<div class="form-group">
-				<label for="primrec-fn">Regular expressions</label>
-				<div id="pr-backreport">
-					<textarea class="form-control" id="primrec-fn" placeholder="Enter regular expressions." onkeyup="prFeedback('primrec-fn','pr-backreport','pr-typeinf','primrec-in','pr-stdout','pr-stderr','pr-stdinf');"></textarea>
-				</div>
-			</div>
-			<div class="form-group">
-			<label for="primrec-ty">Automated type inference: </label><div class="bg-info" id="pr-typeinf"></div>
-			</div>
-			<div class="form-group">
-				<label for="primrec-in">Input</label>
-				<input type="text" class="form-control" id="primrec-in" placeholder="Enter input tuple here."></textarea>
-			</div>
-			<button class="btn btn-default" onclick="prPaintST('pr-ast',prResult);">Simulate!</button>
-		</div><div class="col-md-6">
-			<div hidden id="pr-stdout" class="alert alert-success" role="alert"></div>
-			<div class="alert alert-success" role="alert"><strong>Abstract Syntax Tree (AST):</strong><br><svg id="pr-ast"></svg></div>
-			<div hidden id="pr-stderr" class="alert alert-danger" role="alert"></div>
-			<div hidden id="pr-stdinf" class="alert alert-info" role="alert">Press "Simulate!" to visualize computation...</div>
-		</div>
-	</div>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="rg-parser.js"></script>
-    <script src="parserutils.js"></script>
-    <script src="rendersim.js"></script>
-    <script src="regular.js"></script>
-  </body>
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <h1>Regular languages</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="primrec-fn">Regular expressions</label>
+                    <div id="pr-backreport">
+                        <textarea class="form-control" id="primrec-fn" placeholder="Enter regular expressions." onkeyup="prFeedback('primrec-fn', 'pr-backreport', 'pr-typeinf', 'primrec-in', 'pr-stdout', 'pr-stderr', 'pr-stdinf');"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="primrec-ty">Automated type inference: </label><div class="bg-info" id="pr-typeinf"></div>
+                </div>
+                <div class="form-group">
+                    <label for="primrec-in">Input</label>
+                    <input type="text" class="form-control" id="primrec-in" placeholder="Enter input tuple here."></textarea>
+                </div>
+                <button class="btn btn-default" onclick="prPaintST('pr-ast', prResult);">Simulate!</button>
+            </div><div class="col-md-6">
+                <div hidden id="pr-stdout" class="alert alert-success" role="alert"></div>
+                <div class="alert alert-success" role="alert"><strong>Abstract Syntax Tree (AST):</strong><br><svg id="pr-ast"></svg></div>
+                <div hidden id="pr-stderr" class="alert alert-danger" role="alert"></div>
+                <div hidden id="pr-stdinf" class="alert alert-info" role="alert">Press "Simulate!" to visualize computation...</div>
+            </div>
+        </div>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="rg-parser.js"></script>
+        <script src="parserutils.js"></script>
+        <script src="rendersim.js"></script>
+        <script src="regular.js"></script>
+    </body>
 </html>
