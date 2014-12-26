@@ -32,24 +32,21 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="primrec-fn">Regular expressions</label>
-                    <div id="pr-backreport">
-                        <textarea class="form-control" id="primrec-fn" placeholder="Enter regular expressions." onkeyup="prFeedback('primrec-fn', 'pr-backreport', 'pr-typeinf', 'primrec-in', 'pr-stdout', 'pr-stderr', 'pr-stdinf');"></textarea>
+                    <label for="rgimrec-fn">Regular expression:</label>
+                    <div id="rg-backreport">
+                        <textarea class="form-control" id="rgimrec-fn" placeholder="Enter regular exrgessions." onkeyup="rgFeedback('rgimrec-fn', 'rg-backreport', 'rgimrec-in', 'rg-stdout', 'rg-stderr', 'rg-stdinf');"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="primrec-ty">Automated type inference: </label><div class="bg-info" id="pr-typeinf"></div>
+                    <label for="rgimrec-in">Input</label>
+                    <input type="text" class="form-control" id="rgimrec-in" placeholder="Enter input tuple here."></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="primrec-in">Input</label>
-                    <input type="text" class="form-control" id="primrec-in" placeholder="Enter input tuple here."></textarea>
-                </div>
-                <button class="btn btn-default" onclick="prPaintST('pr-ast', prResult);">Simulate!</button>
+                <button class="btn btn-default" onclick="rgPaintST('rg-ast', rgResult);">Simulate!</button>
             </div><div class="col-md-6">
-                <div hidden id="pr-stdout" class="alert alert-success" role="alert"></div>
-                <div class="alert alert-success" role="alert"><strong>Abstract Syntax Tree (AST):</strong><br><svg id="pr-ast"></svg></div>
-                <div hidden id="pr-stderr" class="alert alert-danger" role="alert"></div>
-                <div hidden id="pr-stdinf" class="alert alert-info" role="alert">Press "Simulate!" to visualize computation...</div>
+                <div hidden id="rg-stdout" class="alert alert-success" role="alert"></div>
+                <div class="alert alert-success" role="alert"><strong>Abstract Syntax Tree (AST):</strong><br><svg id="rg-ast"></svg></div>
+                <div hidden id="rg-stderr" class="alert alert-danger" role="alert"></div>
+                <div hidden id="rg-stdinf" class="alert alert-info" role="alert">Press "Simulate!" to visualize computation...</div>
             </div>
         </div>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

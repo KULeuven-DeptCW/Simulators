@@ -2,7 +2,7 @@
 
 	'\('			/~ Non-associative tokens ~/
 	'\)'
-	'[a-zA-Z]' 	CHAR	[* %match=parseInt(%match); *]
+	'[a-zA-Z]' 	CHAR	[* *]
 	'\*'           /~ Kleene star ~/
 	'\|'           /~ Disjunctive operator ~/
 	;
@@ -16,7 +16,7 @@
 
 p:	e					[* rgResult = %1; *]
 	;
-e: 	  CHAR					[*%% = new rgChr(%1); *]
+e: 	  CHAR					[* console.log(JSON.stringify(%1)); %% = new rgChr(%1); *]
         | e e                                   [*%% = new rgCat(%1,%2); *]
         | '(' e ')'                             [*%% = %1; *]
 	| e '*' 				[*%% = new rgStr(%1); *]
